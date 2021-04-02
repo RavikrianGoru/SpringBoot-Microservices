@@ -1,0 +1,15 @@
+server:
+  port: 9595
+spring:
+  application:
+    name: cloud-config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/RavikrianGoru/ms-config-server
+          clone-on-start: true
+          skipSslValidation: true
+          timeout: 4
+#          username: trolley
+#          password: strongpassword

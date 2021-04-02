@@ -1,0 +1,15 @@
+server:
+    port: 9001
+spring:
+    application:
+        name: eureka-client-department-service
+
+#eureka client registry: Move this configuration into config server and pointed in bootstrap.yml
+#eureka:
+#    client:
+#        fetch-registry: true
+#        register-with-eureka: true
+#        service-url:
+#            defaultZone: http://localhost:8761/eureka/
+#    instance:
+#        hostname: localhost

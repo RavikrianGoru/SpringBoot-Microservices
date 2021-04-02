@@ -1,0 +1,53 @@
+server:
+    port: 9191
+spring:
+    application:
+        name: api-gateway
+    cloud:
+        gateway:
+            routes:
+                - id: gateway-path-user
+                  uri: lb://eureka-client-user-service
+                  predicates:
+                      - Path=/users/**
+                  filters:
+                      - name: CircuitBreaker
+                        args:
+                            name: eureka-client-user-service
+                            fallbackUri: forward:/userServiceFallBack
+                - id: gateway-path-department
+                  uri: lb://eureka-client-department-service
+                  predicates:
+                      - Path=/departments/**
+                  filters:
+                      - name: CircuitBreaker
+                        args:
+                            name: eureka-client-department-service
+                            fallbackUri: forward:/departmentServiceFallBack
+
+#hystrix configuration
+hystrix:
+    command:
+        fallbackcmd:
+            execution:
+                isolation:
+                    thread:
+                        timeoutInMilliseconds: 5000
+
+#Actuator configuration to enable related endpoints
+management:
+    endpoints:
+        web:
+            exposure:
+                include: hystrix.stream
+
+
+#eureka client registry: Move this configuration into config server and pointed in bootstrap.yml
+#eureka:
+#    client:
+#        fetch-registry: true
+#        register-with-eureka: true
+#        service-url:
+#            defaultZone: http://localhost:8761/eureka/
+#    instance:
+#        hostname: localhost

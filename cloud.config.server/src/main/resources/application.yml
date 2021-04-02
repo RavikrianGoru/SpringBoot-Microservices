@@ -1,0 +1,16 @@
+server:
+  port: 9595
+spring:
+  application:
+    name: cloud-config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: D:\SpringBoot Microservices\gitrepo
+#          uri: https://github.com/RavikrianGoru/ms-config-server
+          clone-on-start: true
+          #skipSslValidation: true
+          timeout: 4
+#          username: ravikirangoru@gmail.com
+#          password: dfdhfdkfkf
